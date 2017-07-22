@@ -12,7 +12,13 @@ include "config.php";
 	</div>
 </div>
 <?php
-
+if (isset($_GET['id']))
+{
+	$id = $_GET['id'];
+	echo $id;
+	$update = "UPDATE cerita SET likes = likes + 1 WHERE idcerita = $id";
+	mysqli_query($conn, $update);
+}
 $query = "SELECT idcerita, judul, views, likes, filethumbnail FROM cerita ORDER BY idcerita";
 $query = mysqli_real_escape_string($conn,$query);
 
@@ -36,8 +42,8 @@ if($result = mysqli_query($conn,$query)){
 							<div class="masonryMore">
 								<ul>
 									<li class="squareButton light ico"><a class="icon-eye" title="Views - '. $row->views . '" href="#">'. $row->views . '</a></li>
-									<li class="squareButton light ico likeButton like" data-postid="'. $row->idcerita .'" data-likes="1" data-title-like="Like" data-title-dislike="Dislike">
-									<a class="icon-heart-1" title="Like - 1" href="#"><span class="likePost">'. $row->likes . '</span></a></li>
+									<li class="squareButton light ico">
+									<a class="icon-heart-1" title="Like - 1" href="story.php?id='. $row->idcerita .'"><span class="likePost">'. $row->likes . '</span></a></li>
 								</ul>
 							</div>
 						</div>
