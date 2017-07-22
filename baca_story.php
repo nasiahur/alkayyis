@@ -9,10 +9,15 @@ include "config.php"
 
 </nav>
 <?php
-$id = $_GET['id'];
-$query = "SELECT idcerita, namadokumen FROM cerita WHERE idcerita=$id";
-$query = mysqli_real_escape_string($conn,$query);
-
+if (isset($_GET['id'])){
+	$id = $_GET['id'];
+	$update = "UPDATE cerita SET views = views+1 WHERE idcerita = $id";
+	mysqli_query($conn, $update);
+	$updatelikes = "UPDATE cerita SET views = views+1 WHERE idcerita = $id";
+	mysqli_query($conn, $updatelikes);
+	$query = "SELECT idcerita, namadokumen FROM cerita WHERE idcerita=$id";
+	$query = mysqli_real_escape_string($conn,$query);
+}
 if($result = mysqli_query($conn,$query)){
 	while ($row = mysqli_fetch_object($result)){
     echo 
