@@ -12,7 +12,7 @@ include "config.php";
 	</div>
 </div>
 <?php
-$query = "SELECT idcerita, judul, reviewer, love, filethumbnail FROM cerita, pembacacerita ORDER BY idcerita";
+$query = "SELECT idcerita, judul, views, filethumbnail FROM cerita ORDER BY idcerita";
 $query = mysqli_real_escape_string($conn,$query);
 
 if($result = mysqli_query($conn,$query)){
@@ -30,11 +30,11 @@ if($result = mysqli_query($conn,$query)){
 							<div class="thumb hoverIncrease" data-image="images/story/'. $row->filethumbnail . '" data-title='. $row->judul . '>
 								<img class="wp-post-image" width="714" alt='. $row->judul . ' src="images/story/'. $row->filethumbnail . '">
 							</div>
-							<h4><a href="baca_story.php?id='. $row->idcerita .'" name="judul">'. $row->judul . '</a></h4>        
+							<h4><a href="baca_story.php?id='. $row->idcerita .'">'. $row->judul . '</a></h4>        
 							<div class="masonryInfo">Posted <a href="#" class="post_date">29 Mei 2017</a></div>
 							<div class="masonryMore">
 								<ul>
-									<li class="squareButton light ico"><a class="icon-eye" title="Views - '. $row->reviewer . '" href="#">'. $row->reviewer . '</a></li>
+									<li class="squareButton light ico"><a class="icon-eye" title="Views - '. $row->views . '" href="#">'. $row->views . '</a></li>
 									<li class="squareButton light ico likeButton like" data-postid="948" data-likes="1" data-title-like="Like" data-title-dislike="Dislike">
 									<a class="icon-heart-1" title="Like - 1" href="#"><span class="likePost">100</span></a></li>
 								</ul>
@@ -48,12 +48,6 @@ if($result = mysqli_query($conn,$query)){
 			</div>';
 }
 mysqli_free_result($result);
-}
-
-if( $_GET["judul"]) {
-      echo "Welcome ". $_GET['judul']. "<br />";
-      
-      exit();
 }
 mysqli_close($conn);
 ?>
