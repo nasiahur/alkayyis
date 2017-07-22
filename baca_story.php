@@ -9,12 +9,12 @@ include "config.php"
 
 </nav>
 <?php
-$id = 2;
+$id = $_GET['id'];
 $query = "SELECT idcerita, namadokumen FROM cerita WHERE idcerita=$id";
 $query = mysqli_real_escape_string($conn,$query);
 
 if($result = mysqli_query($conn,$query)){
-	$row = mysqli_fetch_object($result);
+	while ($row = mysqli_fetch_object($result)){
     echo 
 	'<div class="mainWrap without_sidebar">
 	<div class="main" role="main">
@@ -30,7 +30,7 @@ if($result = mysqli_query($conn,$query)){
 		</div>
 	</div>
 </div>';
-
+}
 mysqli_free_result($result);
 }
 mysqli_close($conn);
