@@ -13,8 +13,6 @@ if (isset($_GET['id'])){
 	$id = $_GET['id'];
 	$update = "UPDATE cerita SET views = views+1 WHERE idcerita = $id";
 	mysqli_query($conn, $update);
-	$updatelikes = "UPDATE cerita SET views = views+1 WHERE idcerita = $id";
-	mysqli_query($conn, $updatelikes);
 	$query = "SELECT idcerita, namadokumen FROM cerita WHERE idcerita=$id";
 	$query = mysqli_real_escape_string($conn,$query);
 }
@@ -29,7 +27,7 @@ if($result = mysqli_query($conn,$query)){
 			<br>
 			<div id="nextquiz" class="pagination">
 				<ul class="pageLibrary">
-					<center><li class="pager_last ico right squareButton light" style="text-decoration:underline"><a href="#">Ayo ikut Kuis! </a></li></center>
+					<center><li class="pager_last ico right squareButton light" style="text-decoration:underline"><a href="kuis_story.php?id='. $row->idcerita .'">Ayo ikut Kuis! </a></li></center>
 				</ul>
 			</div>
 		</div>
