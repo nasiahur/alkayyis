@@ -12,7 +12,8 @@ include "config.php";
 	</div>
 </div>
 <?php
-$query = "SELECT idcerita, judul, views, filethumbnail FROM cerita ORDER BY idcerita";
+
+$query = "SELECT idcerita, judul, views, likes, filethumbnail FROM cerita ORDER BY idcerita";
 $query = mysqli_real_escape_string($conn,$query);
 
 if($result = mysqli_query($conn,$query)){
@@ -35,8 +36,8 @@ if($result = mysqli_query($conn,$query)){
 							<div class="masonryMore">
 								<ul>
 									<li class="squareButton light ico"><a class="icon-eye" title="Views - '. $row->views . '" href="#">'. $row->views . '</a></li>
-									<li class="squareButton light ico likeButton like" data-postid="948" data-likes="1" data-title-like="Like" data-title-dislike="Dislike">
-									<a class="icon-heart-1" title="Like - 1" href="#"><span class="likePost">100</span></a></li>
+									<li class="squareButton light ico likeButton like" data-postid="'. $row->idcerita .'" data-likes="1" data-title-like="Like" data-title-dislike="Dislike">
+									<a class="icon-heart-1" title="Like - 1" href="#"><span class="likePost">'. $row->likes . '</span></a></li>
 								</ul>
 							</div>
 						</div>
