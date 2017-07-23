@@ -32,14 +32,14 @@ mysqli_close($conn);
 				<div class="sc_content main animated" style="margin-top:0px !important;margin-bottom:66px !important;">
 					<div class="columnsWrap sc_columns sc_columns_count_5">
 						<div class="columns1_2 sc_column_item sc_column_item_1 odd first" style="text-align:none;">
-						<a href="#">
+						<a href="#popup">
 							<div class="sc_title_icon sc_title_top sc_size_huge">
 								<center><img src="images/benar.png" alt="" /></center>
 							</div>
 							<center><h6 class="sc_title sc_title_iconed" style="color:red">Benar</h6></center></a>
 						</div>
 						<div class="columns1_2 sc_column_item sc_column_item_2 even">
-						<a href="#">
+						<a href="#popup">
 							<div class="sc_title_icon sc_title_top sc_size_huge">
 								<center><img src="images/salah.png" alt="" /></center>
 							</div>
@@ -48,6 +48,13 @@ mysqli_close($conn);
 		</div>
 	</div>
 </div>
+<div id="popup">
+    	<div class="window">
+        	<a href="#" class="close-button" title="Close">X</a>
+            <h2>Alhamdulillah. Jawaban kamu benar!</h2>
+        </div>
+    </div>
+	<link rel="stylesheet" type="text/css" href="style.css">
 </div>
 </div> <!-- </div> class="main" role="main"> -->				
 </div> <!-- /.mainWrap -->
