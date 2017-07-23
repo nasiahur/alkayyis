@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 22, 2017 at 08:56 AM
+-- Generation Time: Jul 23, 2017 at 09:22 AM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 7.0.6
 
@@ -51,9 +51,20 @@ INSERT INTO `akun` (`username`, `password`, `email`) VALUES
 --
 
 CREATE TABLE `benarsalah` (
+  `idkuisbs` int(11) NOT NULL,
   `idcerita` int(11) NOT NULL,
-  `namafile` varchar(50) NOT NULL
+  `namafile` varchar(50) NOT NULL,
+  `pertanyaan` varchar(30) NOT NULL,
+  `jawaban` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `benarsalah`
+--
+
+INSERT INTO `benarsalah` (`idkuisbs`, `idcerita`, `namafile`, `pertanyaan`, `jawaban`) VALUES
+(1, 1, '0.png', '-1.PNG', 'Benar'),
+(2, 2, '1.png', '-1.PNG', 'Salah');
 
 -- --------------------------------------------------------
 
@@ -76,9 +87,9 @@ CREATE TABLE `cerita` (
 --
 
 INSERT INTO `cerita` (`idcerita`, `judul`, `tanggalunggah`, `filethumbnail`, `namadokumen`, `views`, `likes`) VALUES
-(1, 'A', '2017-07-02', 'p1.PNG', '0.PNG', 0, 0),
-(2, 'B', '2017-07-02', 'p2.PNG', '1.png', 0, 0),
-(3, 'C', '2017-07-04', 'p3.PNG', '2.png', 0, 0);
+(1, 'A', '2017-07-02', 'p1.PNG', '0.PNG', 10, 3),
+(2, 'B', '2017-07-02', 'p2.PNG', '1.png', 4, 3),
+(3, 'C', '2017-07-04', 'p3.PNG', '2.png', 4, 2);
 
 -- --------------------------------------------------------
 
@@ -118,38 +129,6 @@ INSERT INTO `karya` (`idkarya`, `idpengguna`, `kreator`, `deskripsikarya`, `judu
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kuis`
---
-
-CREATE TABLE `kuis` (
-  `idkuis` int(11) NOT NULL,
-  `pertanyaan` varchar(100) NOT NULL,
-  `jawaban` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `pembacacerita`
---
-
-CREATE TABLE `pembacacerita` (
-  `idpembacacerita` int(11) NOT NULL,
-  `reviewer` int(11) NOT NULL,
-  `love` int(11) NOT NULL,
-  `idecerita` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `pembacacerita`
---
-
-INSERT INTO `pembacacerita` (`idpembacacerita`, `reviewer`, `love`, `idecerita`) VALUES
-(1, 5, 1, 1);
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `pengguna`
 --
 
@@ -185,6 +164,13 @@ CREATE TABLE `pengikutkuis` (
   `jawabanpengguna` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `pengikutkuis`
+--
+
+INSERT INTO `pengikutkuis` (`idpengikutkuis`, `idkuis`, `idpengguna`, `status`, `jawabanpengguna`) VALUES
+(1, 0, 0, '', '');
+
 -- --------------------------------------------------------
 
 --
@@ -205,12 +191,23 @@ CREATE TABLE `permainan` (
 --
 
 CREATE TABLE `tebakan` (
+  `idkuistebakan` int(11) NOT NULL,
+  `pertanyaan` varchar(100) NOT NULL,
+  `jawaban` varchar(50) NOT NULL,
+  `level` int(11) NOT NULL,
   `namafile1` varchar(50) NOT NULL,
   `namafile2` varchar(50) NOT NULL,
   `namafile3` varchar(50) NOT NULL,
-  `namafile4` varchar(50) NOT NULL,
-  `level` int(11) NOT NULL
+  `namafile4` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tebakan`
+--
+
+INSERT INTO `tebakan` (`idkuistebakan`, `pertanyaan`, `jawaban`, `level`, `namafile1`, `namafile2`, `namafile3`, `namafile4`) VALUES
+(1, 'Bagaimana wajah kita saat bertemu teman?', '2.png', 1, '1.png', '2.png', '3.png', '4.png'),
+(2, 'Bagaimana wajah kita terhadap guru?', '1.png', 2, '1.png', '2.png', '3.png', '4.png');
 
 --
 -- Indexes for dumped tables
@@ -223,6 +220,12 @@ ALTER TABLE `akun`
   ADD PRIMARY KEY (`username`);
 
 --
+-- Indexes for table `benarsalah`
+--
+ALTER TABLE `benarsalah`
+  ADD PRIMARY KEY (`idkuisbs`);
+
+--
 -- Indexes for table `cerita`
 --
 ALTER TABLE `cerita`
@@ -233,18 +236,6 @@ ALTER TABLE `cerita`
 --
 ALTER TABLE `karya`
   ADD PRIMARY KEY (`idkarya`);
-
---
--- Indexes for table `kuis`
---
-ALTER TABLE `kuis`
-  ADD PRIMARY KEY (`idkuis`);
-
---
--- Indexes for table `pembacacerita`
---
-ALTER TABLE `pembacacerita`
-  ADD PRIMARY KEY (`idpembacacerita`);
 
 --
 -- Indexes for table `pengguna`
@@ -265,9 +256,20 @@ ALTER TABLE `permainan`
   ADD PRIMARY KEY (`idgambargames`);
 
 --
+-- Indexes for table `tebakan`
+--
+ALTER TABLE `tebakan`
+  ADD PRIMARY KEY (`idkuistebakan`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
+--
+-- AUTO_INCREMENT for table `benarsalah`
+--
+ALTER TABLE `benarsalah`
+  MODIFY `idkuisbs` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `cerita`
 --
@@ -279,16 +281,6 @@ ALTER TABLE `cerita`
 ALTER TABLE `karya`
   MODIFY `idkarya` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
--- AUTO_INCREMENT for table `kuis`
---
-ALTER TABLE `kuis`
-  MODIFY `idkuis` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `pembacacerita`
---
-ALTER TABLE `pembacacerita`
-  MODIFY `idpembacacerita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
---
 -- AUTO_INCREMENT for table `pengguna`
 --
 ALTER TABLE `pengguna`
@@ -297,12 +289,17 @@ ALTER TABLE `pengguna`
 -- AUTO_INCREMENT for table `pengikutkuis`
 --
 ALTER TABLE `pengikutkuis`
-  MODIFY `idpengikutkuis` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idpengikutkuis` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `permainan`
 --
 ALTER TABLE `permainan`
   MODIFY `idgambargames` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tebakan`
+--
+ALTER TABLE `tebakan`
+  MODIFY `idkuistebakan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
