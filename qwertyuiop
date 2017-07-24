@@ -1,0 +1,20 @@
+<?php 
+include "base.php";
+
+$gambar_gallery="";
+if(isset($_POST['upload_gallery'])){
+	$username = $_SESSION['username'];
+	$sql="select idpengguna from pengguna where username='$username'";
+	$result =mysqli_fetch_assoc(mysqli_query($conn,$sql));
+	//echo $result['idpengguna'];
+	$idpengguna = $result['idpengguna'];
+	$datetime = date("Y-m-d");
+	$kreator = $_POST['nama'].",".$_POST['usia'];
+	$namafile = $_FILES['gambar_gallery']['name'];
+	$judulkarya = $_POST['judulkarya'];
+	echo $idpengguna."  ".$kreator."  ".$judulkarya."  ".$datetime."  ".$namafile."  ";
+	$sql2="INSERT INTO karya(idpengguna, kreator, judulkarya, tanggalunggah, namadokumen, privacyterms) VALUES('$idpengguna','$kreator','$judulkarya',$datetime,'$namafile','1');"; 
+	mysqli_query($conn, $sql2);
+	
+}
+?>
